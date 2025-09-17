@@ -1,7 +1,7 @@
 # Makefile for Gradio Q&A App
 
 # Variables
-APP = app.py
+APP = src/app/main.py
 PYTHON = python3
 VENV = venv
 REQ = requirements.txt
