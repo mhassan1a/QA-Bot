@@ -1,6 +1,6 @@
 import gradio as gr # type: ignore
-from .llm import get_llm
-from .retriever import get_pdf_retriever
+from llm import get_llm 
+from retriever import get_pdf_retriever
 from langchain.chains import RetrievalQA
 
 def answer_question(pdf_file, question):
@@ -13,7 +13,7 @@ def answer_question(pdf_file, question):
 iface = gr.Interface(
     fn=answer_question,
     inputs=[
-        gr.File(label="Upload PDF", type="file"),
+        gr.File(label="Upload PDF", type="filepath"),
         gr.Textbox(label="Enter your question")
     ],
     outputs=gr.Textbox(label="Answer"),
