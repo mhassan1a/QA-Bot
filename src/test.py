@@ -1,11 +1,6 @@
 import pytest
-from unittest.mock import MagicMock
-from langchain_community.document_loaders import PyPDFLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community.vectorstores import Chroma
 
-from app.retriever import get_pdf_retriever
-from app.llm import  get_llm, get_embedding_model
+from app.llm import  get_embedding_model
 from app.main import answer_question
 class DummyLLM:
     """Mock LLM that returns a fixed answer"""

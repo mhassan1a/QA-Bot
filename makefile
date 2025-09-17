@@ -28,7 +28,7 @@ run:
 	. $(VENV)/bin/activate && $(PYTHON) $(APP)
 
 test:
-	. $(VENV)/bin/activate && pytest --cov=. --cov-report=term-missing -v
+	. $(VENV)/bin/activate && pytest --cov=src --cov-report=term-missing -v
 
 lint:
 	. $(VENV)/bin/activate && ruff check .

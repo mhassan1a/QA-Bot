@@ -1,6 +1,6 @@
 import gradio as gr # type: ignore
-from llm import get_llm 
-from retriever import get_pdf_retriever
+from llm import get_llm # type: ignore
+from retriever import get_pdf_retriever # type: ignore
 from langchain.chains import RetrievalQA
 
 def answer_question(pdf_file, question):

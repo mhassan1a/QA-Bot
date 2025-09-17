@@ -1,7 +1,7 @@
 from langchain.vectorstores import Chroma
 from langchain_community.document_loaders import PDFMinerLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from llm import get_embedding_model
+from llm import get_embedding_model # type: ignore
 
 def get_pdf_retriever(pdf_path: str, chunk_size: int = 400, chunk_overlap: int = 50, top_k: int = 5):
     """
