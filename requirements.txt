@@ -8,3 +8,4 @@ sentence-transformers
 torch
 transformers
 langchain-ollama
+rank_bm25

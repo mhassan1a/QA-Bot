@@ -1,6 +1,6 @@
 import pytest
-from src.app.main import answer_question
-from src.app.retriever import get_pdf_retriever
+from qa_bot.app.main import answer_question
+from qa_bot.app.retriever import get_pdf_retriever
 
 
 class DummyLLM:
