@@ -1,24 +1,15 @@
-import os
-from dotenv import load_dotenv
-from langchain_huggingface import HuggingFaceEndpoint, HuggingFaceEmbeddings
+# src/app/llm.py
+from langchain_ollama import OllamaLLM
+from langchain_huggingface import HuggingFaceEmbeddings
 
-# Load API key
-load_dotenv()
-HF_TOKEN = os.getenv("HUGGINGFACEHUB_API_TOKEN")
-
-
-def get_llm():
-    """Return a Hugging Face LLM via hosted inference API."""
-    return HuggingFaceEndpoint(
-        repo_id="tiiuae/falcon-7b-instruct",  # you can swap this for another model on HF
-        huggingfacehub_api_token=HF_TOKEN,
-        temperature=0.7,
-        max_new_tokens=512,
-    )
-
+def get_llm(model_name: str = "gemma3"):
+    """
+    Return a local Ollama LLM for generation.
+    """
+    return OllamaLLM(model=model_name)
 
 def get_embedding_model():
-    """Return Hugging Face embedding model (still via API if supported)."""
-    return HuggingFaceEmbeddings(
-        model_name="sentence-transformers/all-MiniLM-L6-v2"
-    )
+    """
+    Return a Hugging Face embedding model for RAG.
+    """
+    return HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")

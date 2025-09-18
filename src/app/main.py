@@ -1,14 +1,17 @@
-import gradio as gr # type: ignore
-from llm import get_llm # type: ignore
-from retriever import get_pdf_retriever # type: ignore
+# src/app/main.py
+import gradio as gr
+from llm import get_llm
+from retriever import get_pdf_retriever
 from langchain.chains import RetrievalQA
 
 def answer_question(pdf_file, question):
-    retriever = get_pdf_retriever(pdf_file)
-    llm = get_llm()
-    qa_chain = RetrievalQA.from_chain_type(llm, retriever=retriever)
-    result = qa_chain.run(question)
-    return result
+    try:
+        retriever = get_pdf_retriever(pdf_file)
+        llm = get_llm()
+        qa_chain = RetrievalQA.from_chain_type(llm, retriever=retriever)
+        return qa_chain.run(question)
+    except Exception as e:
+        return f"❌ Error: {str(e)}"
 
 iface = gr.Interface(
     fn=answer_question,
@@ -17,9 +20,14 @@ iface = gr.Interface(
         gr.Textbox(label="Enter your question")
     ],
     outputs=gr.Textbox(label="Answer"),
-    title="Hugging Face PDF Q&A",
-    description="Upload a PDF and ask questions. Powered by Hugging Face LLM and embeddings."
+    title="Local Ollama PDF Q&A",
+    description="Upload a PDF and ask questions. Works fully locally.",
+    examples=[
+        ["files/example.pdf", "Summarize the document."],
+        ["files/example.pdf", "What are the main points?"]
+    ],
+    allow_flagging="never"
 )
 
 if __name__ == "__main__":
-    iface.launch()
+    iface.launch(server_name="0.0.0.0", server_port=7860, share=False)

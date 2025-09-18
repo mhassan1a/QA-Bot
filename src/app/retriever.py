@@ -1,28 +1,33 @@
+# src/app/retriever.py
+import os, hashlib
 from langchain.vectorstores import Chroma
 from langchain_community.document_loaders import PDFMinerLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from llm import get_embedding_model # type: ignore
+from llm import get_embedding_model
+from langchain.schema import BaseRetriever
 
-def get_pdf_retriever(pdf_path: str, chunk_size: int = 400, chunk_overlap: int = 50, top_k: int = 5):
+def get_pdf_retriever(pdf_path: str, chunk_size=400, chunk_overlap=50, top_k=5) -> BaseRetriever:
     """
-    Loads a PDF, splits it into chunks, embeds it, and returns a retriever.
-
-    Args:
-        pdf_path (str): Path to the PDF file.
-        chunk_size (int): Maximum size of each text chunk.
-        chunk_overlap (int): Overlap between text chunks.
-        top_k (int): Number of similar documents to return during retrieval.
-
-    Returns:
-        retriever: A retriever object for similarity search.
+    Load a PDF, split it into chunks, embed it, and return a retriever.
     """
+    if not os.path.exists(pdf_path):
+        raise FileNotFoundError(f"PDF not found at {pdf_path}")
+
+    # cache directory based on PDF hash
+    pdf_hash = hashlib.md5(open(pdf_path, "rb").read()).hexdigest()
+    persist_dir = f".chroma_db/{pdf_hash}"
+
     loader = PDFMinerLoader(pdf_path)
     documents = loader.load()
-    
+
     splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=chunk_overlap)
     chunks = splitter.split_documents(documents)
-    
-    vectorstore = Chroma.from_documents(documents=chunks, embedding=get_embedding_model())
-    
+
+    vectorstore = Chroma.from_documents(
+        documents=chunks,
+        embedding=get_embedding_model(),
+        persist_directory=persist_dir
+    )
+
     retriever = vectorstore.as_retriever(search_kwargs={"k": top_k})
     return retriever

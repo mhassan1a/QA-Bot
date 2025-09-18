@@ -22,7 +22,7 @@ venv:
 	$(PYTHON) -m venv $(VENV)
 
 install: venv
-	. $(VENV)/bin/activate && pip install --upgrade pip && pip install -r $(REQ) && pip install ruff pytest pytest-cov
+	. $(VENV)/bin/activate && pip install --upgrade pip && pip install -r $(REQ)  && pip install ruff pytest pytest-cov
 
 run:
 	PYTHONPATH=src . $(VENV)/bin/activate && python3 src/app/main.py
