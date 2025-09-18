@@ -25,7 +25,7 @@ install: venv
 	. $(VENV)/bin/activate && pip install --upgrade pip && pip install -r $(REQ) && pip install ruff pytest pytest-cov
 
 run:
-	. $(VENV)/bin/activate && $(PYTHON) $(APP)
+	PYTHONPATH=src . $(VENV)/bin/activate && python3 src/app/main.py
 
 test:
 	. $(VENV)/bin/activate && PYTHONPATH=src pytest --cov=src --cov-report=term-missing -v

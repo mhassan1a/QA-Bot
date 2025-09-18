@@ -1,11 +1,8 @@
 gradio==4.44.0
 langchain==0.2.11
 langchain-community==0.2.10
+langchain-huggingface
 chromadb==0.4.24
 pypdf==4.3.1
 pydantic==2.9.1
-dotenv
-transformers
-sentence-transformers
-accelerate
-torch
+python-dotenv

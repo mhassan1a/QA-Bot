@@ -17,8 +17,8 @@ iface = gr.Interface(
         gr.Textbox(label="Enter your question")
     ],
     outputs=gr.Textbox(label="Answer"),
-    title="Watsonx PDF Q&A",
-    description="Upload a PDF and ask questions. Powered by IBM Watsonx LLM and embeddings."
+    title="Hugging Face PDF Q&A",
+    description="Upload a PDF and ask questions. Powered by Hugging Face LLM and embeddings."
 )
 
 if __name__ == "__main__":

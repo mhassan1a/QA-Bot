@@ -1,21 +1,24 @@
+import os
+from dotenv import load_dotenv
+from langchain_huggingface import HuggingFaceEndpoint, HuggingFaceEmbeddings
 
-from langchain_community.llms import HuggingFacePipeline
-from langchain_community.embeddings import HuggingFaceEmbeddings
-from transformers import pipeline
+# Load API key
+load_dotenv()
+HF_TOKEN = os.getenv("HUGGINGFACEHUB_API_TOKEN")
 
 
 def get_llm():
-    """Return a Hugging Face LLM wrapped for LangChain."""
-    generator = pipeline(
-        "text-generation",
-        model="tiiuae/falcon-7b-instruct",  # you can swap in any instruction-tuned model
-        device=-1,  # -1 = CPU, or set CUDA device id (e.g., 0 for GPU)
-        max_new_tokens=512,
+    """Return a Hugging Face LLM via hosted inference API."""
+    return HuggingFaceEndpoint(
+        repo_id="tiiuae/falcon-7b-instruct",  # you can swap this for another model on HF
+        huggingfacehub_api_token=HF_TOKEN,
         temperature=0.7,
+        max_new_tokens=512,
     )
-    return HuggingFacePipeline(pipeline=generator)
 
 
 def get_embedding_model():
-    """Return a Hugging Face embedding model."""
-    return HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+    """Return Hugging Face embedding model (still via API if supported)."""
+    return HuggingFaceEmbeddings(
+        model_name="sentence-transformers/all-MiniLM-L6-v2"
+    )
