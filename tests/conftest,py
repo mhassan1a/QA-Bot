@@ -1,0 +1,11 @@
+import pytest
+from reportlab.pdfgen import canvas
+
+@pytest.fixture
+def real_pdf(tmp_path):
+    """Create a real minimal PDF with text inside"""
+    pdf_path = tmp_path / "test.pdf"
+    c = canvas.Canvas(str(pdf_path))
+    c.drawString(100, 750, "This is a test document about AI.")
+    c.save()
+    return pdf_path

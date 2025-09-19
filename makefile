@@ -17,9 +17,13 @@ help:
 	@echo "  make lint      - Run linting with ruff"
 	@echo "  make format    - Auto-format with ruff"
 	@echo "  make clean     - Remove virtual environment and cache"
-
+	
 venv:
 	$(PYTHON) -m venv $(VENV)
+
+activate:
+	@echo "Run this in your shell:"
+	@echo "  source venv/bin/activate"
 
 install: venv
 	. $(VENV)/bin/activate && pip install --upgrade pip && pip install -r $(REQ)  && pip install ruff pytest pytest-cov
