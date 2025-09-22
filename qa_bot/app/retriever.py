@@ -4,7 +4,7 @@ import hashlib
 from langchain.vectorstores import Chroma
 from langchain_community.document_loaders import PDFMinerLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from llm import get_embedding_model
+from qa_bot.app.llm import get_embedding_model
 from langchain.retrievers import EnsembleRetriever
 from langchain_community.retrievers import BM25Retriever
 
