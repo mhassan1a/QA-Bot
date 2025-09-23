@@ -1,3 +1,6 @@
+[![Python application CI](https://github.com/mhassan1a/QA-Bot/actions/workflows/main.yml/badge.svg)](https://github.com/mhassan1a/QA-Bot/actions/workflows/main.yml)
+
+
 # Local RAG PDF Q&A App
 
 This project implements a **Retrieval-Augmented Generation (RAG) PDF Q&A application** using:
